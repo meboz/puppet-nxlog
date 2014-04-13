@@ -1,0 +1,26 @@
+define ROOT <%=@install_dir%>
+
+Moduledir %ROOT%\modules
+CacheDir %ROOT%\data
+Pidfile %ROOT%\data\nxlog.pid
+SpoolDir %ROOT%\data
+LogFile %ROOT%\data\nxlog.log
+
+<% @inputs.each do |input| -%>
+<Input <%=input[0]%>>
+    <% input[1].each do |setting| -%>
+       <%= setting[0] %> <%= setting[1] %> 
+    <% end -%>
+</Input>
+<% end -%>
+
+<Output out>
+    Module      om_tcp
+    Host        192.168.1.1
+    Port        514
+</Output>
+
+<Route 1>
+    Path        in => out
+</Route>
+
